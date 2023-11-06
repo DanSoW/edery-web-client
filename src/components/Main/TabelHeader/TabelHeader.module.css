@@ -1,0 +1,31 @@
+.container {
+  height: 55px;
+  border-radius: 4px;
+  padding-left: 24px;
+  padding-right: 24px;
+  display: grid;
+  grid-auto-flow: column;
+  grid-template-columns: 35% 30% 15% 20%;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+}
+.container div {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+.container div p {
+  color: var(--text-regular, #AAAAB4);
+  font-family: "Golos Text";
+  font-size: 16px;
+  font-style: normal;
+  font-weight: 600;
+  line-height: normal;
+  text-transform: uppercase;
+}
+@media only screen and (max-width: 1000px) {
+  .container {
+    display: none;
+  }
+}

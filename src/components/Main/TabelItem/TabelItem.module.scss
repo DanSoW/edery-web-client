@@ -1,0 +1,90 @@
+.container {
+    height: 55px;
+    border-radius: 4px;
+    background: #FFF;
+    padding-left: 24px;
+    padding-right: 24px;
+    display: grid;
+    grid-auto-flow: column;
+    grid-template-columns: 35% 30% 15% 20%;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+
+    div {
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+    }
+
+    @media only screen and (max-width: 1000px) {
+        display: flex;
+        flex-direction: column;
+        height: max-content;
+        align-items: flex-start;
+        height: 115px;
+        gap: 14px;
+    }
+}
+
+.matches {
+    display: flex;
+    flex-direction: row !important;
+    gap: 30px
+}
+
+.name {
+    color: var(--text-title, #353544);
+    font-family: 'Golos Text';
+    font-size: 16px;
+    font-style: normal;
+    font-weight: 400;
+    line-height: normal;
+    margin: 0;
+    padding: 0;
+}
+
+.score {
+    color: var(--demititle, #98989E);
+    font-family: 'Golos Text';
+    font-size: 16px;
+    font-style: normal;
+    font-weight: 400;
+    line-height: normal;
+    margin: 0;
+    padding: 0;
+}
+
+.middleA {
+    color: var(--text-title, #353544);
+    font-family: 'Golos Text';
+    font-size: 16px;
+    font-style: normal;
+    font-weight: 600;
+    line-height: normal;
+    margin: 0;
+    padding: 0;
+}
+
+.middleF {
+    color: var(--colors-red, #EB5757);
+    font-family: 'Golos Text';
+    font-size: 16px;
+    font-style: normal;
+    font-weight: 600;
+    line-height: normal;
+    margin: 0;
+    padding: 0;
+}
+
+.result {
+    color: var(--colors-violet, #A074FF);
+    font-family: 'Golos Text';
+    font-size: 16px;
+    font-style: normal;
+    font-weight: 600;
+    line-height: normal;
+
+    margin: 0;
+    padding: 0;
+}

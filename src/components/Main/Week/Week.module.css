@@ -1,0 +1,74 @@
+.container {
+  width: 100%;
+  background-color: transparent;
+}
+@media only screen and (max-width: 534px) {
+  .container {
+    width: 300px;
+  }
+}
+
+.title {
+  display: flex;
+  flex-direction: row;
+  gap: 12px;
+}
+@media only screen and (max-width: 534px) {
+  .title {
+    flex-direction: column;
+    align-items: center;
+  }
+}
+
+.controls {
+  margin-top: 30px;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+}
+.controls .btn {
+  background-color: transparent;
+  border: none;
+  display: flex;
+  padding: 12px;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 10px;
+  border-radius: 4px;
+  background: var(--palette-card, #FFF);
+  cursor: pointer;
+  transition: all 0.5s;
+}
+.controls .btn:hover {
+  background-color: #ced5ff;
+}
+.controls p {
+  margin: 0;
+  padding: 0;
+}
+
+.date {
+  color: var(--text-title, #353544);
+  font-family: "Golos Text";
+  font-size: 24px;
+  font-style: normal;
+  font-weight: 600;
+  line-height: normal;
+}
+
+.customSwiper {
+  width: 100%;
+  height: -moz-max-content;
+  height: max-content;
+  background-color: transparent;
+}
+
+.swiperWrapper {
+  margin-top: 68px;
+  background-color: transparent;
+}
+
+.swiperSlide {
+  background-color: transparent;
+}
