@@ -134,6 +134,36 @@ const Header: FC<IHeaderProps> = ({ value, setValue }) => {
               </Menu>
             </div>
           )}
+          {
+            !userSelector.data && (
+              <div className={styles.profile}>
+                <div className={styles.info}>
+                  <p className={styles.name}>Не</p>
+                  <p className={styles.class}>Авторизован</p>
+                </div>
+                <Button
+                  id="basic-button"
+                  aria-controls={open ? "basic-menu" : undefined}
+                  aria-haspopup="true"
+                  aria-expanded={open ? "true" : undefined}
+                  onClick={handleClick}
+                >
+                  <Avatar>О</Avatar>
+                </Button>
+                <Menu
+                  id="basic-menu"
+                  anchorEl={anchorEl}
+                  open={open}
+                  onClose={handleClose}
+                  MenuListProps={{
+                    "aria-labelledby": "basic-button",
+                  }}
+                >
+                  <MenuItem onClick={handleLogout}>Выход</MenuItem>
+                </Menu>
+              </div>
+            )
+          }
         </div>
       )}
       {matches && (
@@ -160,6 +190,34 @@ const Header: FC<IHeaderProps> = ({ value, setValue }) => {
                   onClick={handleClick}
                 >
                   <Avatar>{userSelector.data?.name?.slice(0, 1)}</Avatar>
+                </Button>
+                <Menu
+                  id="basic-menu"
+                  anchorEl={anchorEl}
+                  open={open}
+                  onClose={handleClose}
+                  MenuListProps={{
+                    "aria-labelledby": "basic-button",
+                  }}
+                >
+                  <MenuItem onClick={handleLogout}>Выход</MenuItem>
+                </Menu>
+              </div>
+            )}
+            {!userSelector.data && (
+              <div className={styles.profile}>
+                <div className={styles.info}>
+                  <p className={styles.name}>Не</p>
+                  <p className={styles.class}>Авторизован</p>
+                </div>
+                <Button
+                  id="basic-button"
+                  aria-controls={open ? "basic-menu" : undefined}
+                  aria-haspopup="true"
+                  aria-expanded={open ? "true" : undefined}
+                  onClick={handleClick}
+                >
+                  <Avatar>О</Avatar>
                 </Button>
                 <Menu
                   id="basic-menu"

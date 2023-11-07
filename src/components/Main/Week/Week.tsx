@@ -28,6 +28,7 @@ const Week: FC<any> = () => {
   const weekSelector = useAppSelector((s) => s.weekReducer);
   const dispatch = useAppDispatch();
   const swiperRef = useRef(null);
+  const modifyDateRef = useRef<boolean>(true);
   const [date, setDate] = useState(() => {
     const newDate = new Date();
     if (!newDate.getDay()) {
@@ -42,6 +43,29 @@ const Week: FC<any> = () => {
   useEffect(() => {
     dispatch(apiWeekDate(date.toISOString().slice(0, 10)));
   }, []);
+
+  useEffect(() => {
+    if (weekSelector.data && weekSelector.data?.firstHalf) {
+      let localCurrent = 0;
+
+      if (date.getDay() === 1 || date.getDay() === 4) {
+        localCurrent = 0;
+      } else if (date.getDay() === 2 || date.getDay() === 5) {
+        localCurrent = 1;
+      } else if (date.getDay() === 3 || date.getDay() === 6) {
+        localCurrent = 3;
+      }
+
+      if (localCurrent !== current) {
+        modifyDateRef.current = false;
+
+        setCurrent(localCurrent);
+        toSlide(localCurrent, false);
+
+        modifyDateRef.current = true;
+      }
+    }
+  }, [weekSelector.data]);
 
   const toPrevSlide = () => {
     if (!swiperRef || !swiperRef.current || weekSelector.isLoading) {
@@ -91,10 +115,10 @@ const Week: FC<any> = () => {
 
     let counter = current + 1;
     if (weekSelector.data && weekSelector.data?.firstHalf && counter < weekSelector.data?.firstHalf?.length) {
-      setCurrent(counter);
-
       // Установка текущей даты
       setDate(newDate);
+
+      setCurrent(counter);
 
       // @ts-ignore
       swiperRef.current.swiper.slideTo(counter);
@@ -110,20 +134,26 @@ const Week: FC<any> = () => {
         setDate(newDate);
       });
     }
-
   };
 
-  const toSlide = (slide: number) => {
-    if (!swiperRef || !swiperRef.current || weekSelector.isLoading) {
+  const toSlide = (slide: number, modifyDate: boolean = true) => {
+    if (!swiperRef || !swiperRef.current || weekSelector.isLoading || (slide === current)) {
       return;
     }
 
-    const sign = (slide > current) ? true : false;
-    const value = (sign) ? 1 : -1;
+    if (modifyDate) {
+      const sign = (slide > current) ? true : false;
+      const value = (sign) ? 1 : -1;
 
-    const newDate = new Date(date);
-    newDate.setDate(newDate.getDate() + value);
-    setDate(newDate);
+      const newDate = new Date(date);
+      newDate.setDate(newDate.getDate() + value);
+      if (!newDate.getDate()) {
+        newDate.setDate(newDate.getDate() + value);
+      }
+
+      setDate(newDate);
+    }
+
     setCurrent(slide);
 
     // @ts-ignore
@@ -137,7 +167,10 @@ const Week: FC<any> = () => {
       }
       <div className={styles.container}>
         <div className={styles.controls}>
-          <button className={styles.btn} onClick={toPrevSlide}>
+          <button className={styles.btn} onClick={(e) => {
+            e.stopPropagation();
+            toPrevSlide();
+          }}>
             <ArrowForwardIosIcon
               sx={{
                 color: "#A074FF",
@@ -151,7 +184,10 @@ const Week: FC<any> = () => {
             <p className={styles.date}>{(!date.getDay()) ? days[date.getDay() + 1] : days[date.getDay()]}</p>
           </div>
 
-          <button className={styles.btn} onClick={toNextSlide}>
+          <button className={styles.btn} onClick={(e) => {
+            e.stopPropagation();
+            toNextSlide();
+          }}>
             <ArrowForwardIosIcon
               sx={{
                 color: "#A074FF",
@@ -171,7 +207,9 @@ const Week: FC<any> = () => {
             }}
             className={styles.customSwiper}
             onSlideChange={(obj) => {
-              toSlide(obj.activeIndex);
+              if (modifyDateRef.current) {
+                toSlide(obj.activeIndex);
+              }
             }}
           >
             {weekSelector.data?.firstHalf && weekSelector.data?.firstHalf.map((item, index) => {
